@@ -109,7 +109,8 @@ Latitude and longitude can be changed to any value (bounded, obviously) within t
   local_goal = global_to_local(global_goal, self.global_home)
   grid_goal = (int(local_goal[0] - north_offset),
                int(local_goal[1] - east_offset))
-               ```
+
+```
 
 
 #### 5. Modify A* to include diagonal motion (or replace A* altogether)
