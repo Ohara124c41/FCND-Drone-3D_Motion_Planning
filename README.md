@@ -48,16 +48,11 @@ These scripts contain a basic planning implementation that including:
 
 
 
-...and here's a lovely image from Udacity, that I did not want to delete!
+...and here's a lovely image from Udacity!
 
 ![Top Down View](./misc/high_up.png)
 
-Here's | A | Snappy | Table
---- | --- | --- | ---
-1 | `highlight` | **bold** | 7.41
-2 | a | b | c
-3 | *italic* | text | 403
-4 | 2 | 3 | abcd
+
 
 ### Implementing Your Path Planning Algorithm
 
