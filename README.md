@@ -191,13 +191,36 @@ Hey! It looks like we got something!
 
 ![image02](https://github.com/Ohara124c41/FCND-Drone-Motion_Planning/blob/master/images/Screenshot%20from%202018-05-26%2017-51-32.png?raw=true)
 #### 6. Cull waypoints
-For this step you can use a collinearity test or ray tracing method like Bresenham. The idea is simply to prune your path of unnecessary waypoints. Explain the code you used to accomplish this step.
+It was recommended to use a collinearity test or ray tracing (Bresenham's method) to prune superfluous waypoints. This is achieved by characterizing points based on the line-of-sight of the path to the goal and eliminating unnecessary waypoints. This increases the efficiency and performance of the system, as the drone has a protocol to follow all compulsory waypoints precisely, which can be problematic when the simple program causes the drone to "overshoot" its trajectory (which causes oscillations when reorienting).
 
+Thus, a path pruning feature was defined in the planning_utils:
 
+```py
+  def path_pruning(path):
+      prune_path = [p for p in path]
+
+      i = 0
+      prune_count = 0
+      while i < len(prune_path) - 2:
+          p1 = point(prune_path[i])
+          p2 = point(prune_path[i+1])
+          p3 = point(prune_path[i+2])
+
+          # Remove superfluous points
+          if collinearity_check(p1, p2, p3):
+              prune_path.remove(prune_path[i+1])
+              prune_count += 1
+          else:
+              i += 1
+      print('Pruning Path', prune_count)
+      return prune_path
+```
 
 ### Execute the flight
 #### 1. Does it work?
 It works!
+
+![image03](https://github.com/Ohara124c41/FCND-Drone-Motion_Planning/blob/master/images/Screenshot%20from%202018-05-26%2017-50-57.png?raw=true)
 
 ### Double check that you've met specifications for each of the [rubric](https://review.udacity.com/#!/rubrics/1534/view) points.
 
@@ -208,4 +231,4 @@ For an extra challenge, consider implementing some of the techniques described i
 Put all of these together and make up your own crazy paths to fly! Can you fly a double helix??
 ![Double Helix](./misc/double_helix.gif)
 
-Ok flying a double helix might seem like a silly idea, but imagine you are an autonomous first responder vehicle. You need to first fly to a particular building or location, then fly a reconnaissance pattern to survey the scene! Give it a try!
+Okay, flying a double helix might seem like a silly idea, but imagine you are an autonomous first responder vehicle. You need to first fly to a particular building or location, then fly a reconnaissance pattern to survey the scene! Give it a try!
